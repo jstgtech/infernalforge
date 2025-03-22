@@ -1,3 +1,13 @@
+# Custom
+.env
+output/*
+build/
+.venv/
+flux.egg-info/
+
+# Ignore the output directory
+output/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
