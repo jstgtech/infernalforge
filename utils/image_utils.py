@@ -138,8 +138,17 @@ def process_image(pipe, prompt, height=512, width=512, num_inference_steps=10, s
         # Save the image
         save_image(generated_image, prompt, output_path)
 
+        # Get the actual saved file path
+        sanitized_prompt = re.sub(r'[<>:"/\\|?*(){}]', '', prompt[:10])
+        sanitized_prompt = sanitized_prompt.replace(' ', '_')
+        filename = f'{sanitized_prompt}-{datetime.datetime.now().strftime("%Y%m%d-%H%M%S")}.png'
+        image_path = os.path.join(output_path, filename)
+
         logger.info(f"Image generated and saved successfully with seed: {seed}")
-        return os.path.join(output_path, f"{prompt[:10]}-{seed}.png"), seed
+        return image_path, seed
+    except TimeoutError:
+        logger.error("Image processing timed out")
+        raise
     except Exception as e:
         logger.error(f"Failed to process image: {e}")
         raise

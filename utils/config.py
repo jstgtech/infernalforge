@@ -20,6 +20,9 @@ default_seed = int(default_seed) if default_seed and default_seed.isdigit() else
 # Add torch_dtype for dynamic data type configuration
 torch_dtype = torch.bfloat16  
 
+# Define output directory
+output_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "output")
+
 # Validate required environment variables
 required_vars = {"HF_ACCESS_TOKEN": hf_access_token, "MODEL": model, "CKPT_PATH": ckpt_path}
 missing_vars = [var for var, value in required_vars.items() if not value]

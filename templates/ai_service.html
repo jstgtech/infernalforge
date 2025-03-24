@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InfernalForge AI Service - Information</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'infernal-dark': '#0B1120',
+                        'infernal-card': '#111827'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjNjg2ODY4IiByeD0iMiIvPgogIDxyZWN0IHg9IjgiIHk9IjEyIiB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIGZpbGw9IiMwMDAiLz4KICA8cGF0aCBkPSJNMTIgMTZsNCAtNCA0IDR2NmwtNCAtNC00IDR6IiBmaWxsPSIjZmY3ZTAwIi8+CiAgPHBhdGggZD0iTTEyIDE2bDQgLTQgNCA0djJsLTQgLTQtNCA0eiIgZmlsbD0iI2ZmZjIwMCIvPgo8L3N2Zz4=">
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAGnWlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS41LjAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIgogICB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCAyMS4wIChXaW5kb3dzKSIKICAgeG1wOkNyZWF0ZURhdGU9IjIwMjQtMDMtMTlUMTI6MzQ6MTctMDQ6MDAiCiAgIHhtcDpNb2RpZnlEYXRlPSIyMDI0LTAzLTE5VDEyOjM0OjE3LTA0OjAwIgogICB4bXA6TWV0YWRhdGFEYXRlPSIyMDI0LTAzLTE5VDEyOjM0OjE3LTA0OjAwIj4KIDwvcmRmOkRlc2NyaXB0aW9uPgo8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+Af/+/fz7+vn49/b19PPy8fDv7u3s6+rp6Ofm5eTj4uHg397d3Nva2djX1tXU09LR0M/OzczLysnIx8bFxMPCwcC/vr28u7q5uLe2tbSzsrGwr66trKuqqainpqWko6KhoJ+enZybmpmYl5aVlJOSkZCPjo2Mi4qJiIeGhYSDgoGAf359fHt6eXh3dnV0c3JxcG9ubWxramloZ2ZlZGNiYWBfXl1cW1pZWFdWVVRTUlFQT05NTEtKSUhHRkVEQ0JBQD8+PTw7Ojk4NzY1NDMyMTAvLi0sKyopKCcmJSQjIiEgHx4dHBsaGRgXFhUUExIREA8ODQwLCgkIBwYFBAMCAQAAOw==" sizes="32x32">
+    
+    <style>
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            background-color: #0B1120;
+            color: #e2e8f0;
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 500;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fAZ9hiA.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYAZ9hiA.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZ9hiA.woff2) format('woff2');
+        }
+        .tooltip {
+            position: relative;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 6px;
+            white-space: nowrap;
+            transition: opacity 0.3s;
+            font-size: 0.875rem;
+        }
+        @keyframes glow {
+            0%, 100% {
+                filter: brightness(1.1) blur(1px);
+            }
+            50% {
+                filter: brightness(1.3) blur(1px);
+            }
+        }
+        @keyframes flame {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+                opacity: 0.85;
+            }
+            50% {
+                transform: translateY(-2px) scale(1.1);
+                opacity: 0.95;
+            }
+        }
+        .link-hover {
+            @apply transition-colors duration-200;
+        }
+        .link-hover:hover {
+            @apply text-blue-300;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-infernal-dark">
+    <header class="bg-infernal-card py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-bold text-center bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">InfernalForge AI Service</h1>
+            <p class="mt-2 text-center text-slate-400">Information Page</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-infernal-card rounded-lg shadow-xl p-6">
+            <div class="mb-8">
+                <h2 class="text-2xl font-semibold text-white mb-4">About This Service</h2>
+                <div class="prose prose-invert">
+                    <p class="text-slate-400">This is the AI backend service for InfernalForge's image generation system. For security reasons, this service cannot be accessed directly. Please use the main InfernalForge web interface to generate images.</p>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-2xl font-semibold text-white mb-4">How to Use</h2>
+                <div class="text-slate-400">
+                    <p>To generate images using InfernalForge:</p>
+                    <ol class="list-decimal list-inside space-y-2 mt-4">
+                        <li>Visit the main InfernalForge interface at <a href="http://localhost:5000" class="text-blue-400 link-hover">http://localhost:5000</a></li>
+                        <li>Use the image generation interface to create your images</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-semibold text-white mb-4">Security Notice</h2>
+                <p class="text-slate-400">This service is designed to work exclusively through the main InfernalForge interface. Direct API access is not available for security reasons.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-12 py-6 text-center text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p>InfernalForge AI Service - Part of the InfernalForge Image Management System</p>
+        </div>
+    </footer>
+</body>
+</html> 
