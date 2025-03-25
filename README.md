@@ -205,6 +205,8 @@ The following environment variables are used to configure the application:
 - **DEFAULT_WIDTH**: The default width of generated images (default: 256).
 - **DEFAULT_NUM_INFERENCE_STEPS**: The default number of inference steps (default: 50).
 - **DEFAULT_SEED**: The default random seed for reproducibility (default: 0).
+- **AI_SERVICE_AUTH_TOKEN**: Only needed for running the web interface. Token that will be used to authenticate requests to the AI Service.
+- **FLASK_SECRET_KEY**: Only needed for running the web interface. Secret key for the Flash Service.
 
 ---
 
@@ -223,3 +225,111 @@ Created by jstgtech
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Web Interface
+
+InfernalForge includes a modern, secure web interface for easy image generation. The interface provides a user-friendly way to interact with the AI service while implementing robust security measures and rate limiting.
+
+### Prerequisites
+
+1. Set up the required environment variables:
+   - `AI_SERVICE_AUTH_TOKEN`: Authentication token for the AI service
+   - `FLASK_SECRET_KEY`: (Optional) Flask secret key for session management
+
+2. Create a `.env` file in the project root with your environment variables:
+```bash
+AI_SERVICE_AUTH_TOKEN=your_auth_token_here
+FLASK_SECRET_KEY=your_secret_key_here  # Optional
+```
+
+3. Load the environment variables:
+```bash
+source .env  # On MacOS/Linux
+# OR
+.\.env      # On Windows PowerShell
+```
+
+### Setup and Running
+
+1. **Set Up a Virtual Environment**:
+   - Create and activate a virtual environment:
+     - **MacOS/Linux**:
+       ```bash
+       python -m venv .venv
+       source .venv/bin/activate
+       ```
+     - **Windows (PowerShell)**:
+       ```powershell
+       python -m venv .venv
+       .venv\Scripts\Activate.ps1
+       ```
+     - **Windows (Command Prompt)**:
+       ```cmd
+       python -m venv .venv
+       .venv\Scripts\activate.bat
+       ```
+
+2. Install the additional requirements:
+```bash
+pip install -r requirements.txt
+```
+
+3. Start the AI service in a separate terminal:
+```bash
+python ai_service.py
+```
+
+4. In a new terminal, run the Flask application:
+```bash
+python app.py
+```
+
+5. Open your web browser and navigate to `http://localhost:5000`
+
+Note: Make sure both the AI service (port 5001) and web interface (port 5000) are running simultaneously for the system to work properly.
+
+### Features
+
+- **Modern UI**: Clean, responsive interface with a dark theme
+- **Secure Authentication**: Token-based authentication between web UI and AI service
+- **Rate Limiting**: 
+  - Per-user rate limiting (3 requests per minute)
+  - Concurrent job limits (2 concurrent jobs per user)
+  - Global rate limiting (10 total requests per minute)
+- **Input Validation**: Comprehensive validation for all user inputs
+- **Real-time Feedback**: Loading indicators and status updates
+- **Session Management**: Secure session handling with CSRF protection
+- **Health Monitoring**: Built-in health check endpoint
+
+### Security Features
+
+- Secure session cookies with HTTP-only and SameSite attributes
+- CSRF protection
+- Input validation and sanitization
+- Rate limiting to prevent abuse
+- Secure headers configuration
+- Request timeout handling
+
+### API Endpoints
+
+- `GET /`: Main web interface
+- `POST /generate`: Image generation endpoint
+- `GET /output/<file_id>`: Image retrieval endpoint
+- `GET /health`: Health check endpoint
+
+### Error Handling
+
+The web interface includes comprehensive error handling for:
+- Rate limit exceeded scenarios
+- Invalid input validation
+- Service communication issues
+- Timeout handling
+- Authentication failures
+
+### Notes
+
+- The web interface communicates with the AI service running on port 5001
+- All requests are authenticated using the `AI_SERVICE_AUTH_TOKEN`
+- Generated images are served through a secure proxy
+- Session data is stored securely with proper expiration
+- Files saved locally are stored under the output/ directory inside a session-specific folder.

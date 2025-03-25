@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InfernalForge - AI Image Generation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjNjg2ODY4IiByeD0iMiIvPgogIDxyZWN0IHg9IjgiIHk9IjEyIiB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIGZpbGw9IiMwMDAiLz4KICA8cGF0aCBkPSJNMTIgMTZsNCAtNCA0IDR2NmwtNCAtNC00IDR6IiBmaWxsPSIjZmY3ZTAwIi8+CiAgPHBhdGggZD0iTTEyIDE2bDQgLTQgNCA0djJsLTQgLTQtNCA0eiIgZmlsbD0iI2ZmZjIwMCIvPgo8L3N2Zz4=">
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAGnWlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS41LjAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIgogICB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCAyMS4wIChXaW5kb3dzKSIKICAgeG1wOkNyZWF0ZURhdGU9IjIwMjQtMDMtMTlUMTI6MzQ6MTctMDQ6MDAiCiAgIHhtcDpNb2RpZnlEYXRlPSIyMDI0LTAzLTE5VDEyOjM0OjE3LTA0OjAwIgogICB4bXA6TWV0YWRhdGFEYXRlPSIyMDI0LTAzLTE5VDEyOjM0OjE3LTA0OjAwIj4KIDwvcmRmOkRlc2NyaXB0aW9uPgo8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+Af/+/fz7+vn49/b19PPy8fDv7u3s6+rp6Ofm5eTj4uHg397d3Nva2djX1tXU09LR0M/OzczLysnIx8bFxMPCwcC/vr28u7q5uLe2tbSzsrGwr66trKuqqainpqWko6KhoJ+enZybmpmYl5aVlJOSkZCPjo2Mi4qJiIeGhYSDgoGAf359fHt6eXh3dnV0c3JxcG9ubWxramloZ2ZlZGNiYWBfXl1cW1pZWFdWVVRTUlFQT05NTEtKSUhHRkVEQ0JBQD8+PTw7Ojk4NzY1NDMyMTAvLi0sKyopKCcmJSQjIiEgHx4dHBsaGRgXFhUUExIREA8ODQwLCgkIBwYFBAMCAQAAOw==" sizes="32x32">
+    
+    <style>
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 500;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fAZ9hiA.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYAZ9hiA.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZ9hiA.woff2) format('woff2');
+        }
+        .tooltip {
+            position: relative;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 6px;
+            white-space: nowrap;
+            transition: opacity 0.3s;
+            font-size: 0.875rem;
+        }
+        @keyframes glow {
+            0%, 100% {
+                filter: brightness(1.1) blur(1px);
+            }
+            50% {
+                filter: brightness(1.3) blur(1px);
+            }
+        }
+        @keyframes flame {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+                opacity: 0.85;
+            }
+            50% {
+                transform: translateY(-2px) scale(1.1);
+                opacity: 0.95;
+            }
+        }
+        @keyframes ember {
+            0% { 
+                transform: translate(0, 0) scale(1); 
+                opacity: 1;
+            }
+            100% { 
+                transform: translate(var(--ember-x, 20px), var(--ember-y, -40px)) rotate(var(--ember-r, 0deg)) scale(0); 
+                opacity: 0;
+            }
+        }
+        .forge-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .furnace {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #686868, #808080);
+            border: none;
+            image-rendering: pixelated;
+            box-shadow: 0 4px 20px rgba(255, 100, 0, 0.15);
+        }
+        .furnace::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+            width: 60px;
+            height: 40px;
+            background: #000000;
+            border: none;
+        }
+        .furnace::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: #a8a8a8;
+        }
+        .flames {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -30%);
+            width: 40px;
+            height: 32px;
+            display: grid;
+            grid-template-columns: repeat(4, 10px);
+            grid-template-rows: repeat(4, 8px);
+            z-index: 1;
+            overflow: hidden;
+            filter: drop-shadow(0 0 8px rgba(255, 100, 0, 0.2));
+        }
+        .flame {
+            width: 10px;
+            height: 8px;
+            background: #ff0000;
+            animation: flame 1.5s infinite;
+            opacity: 0.9;
+        }
+        .flame:nth-child(2) {
+            background: #ff3d00;
+            animation-delay: 0.2s;
+        }
+        .flame:nth-child(3) {
+            background: #ff7e00;
+            animation-delay: 0.4s;
+        }
+        .flame:nth-child(4) {
+            background: #ffae00;
+            animation-delay: 0.1s;
+        }
+        .flame:nth-child(5) {
+            background: #ff7e00;
+            animation-delay: 0.3s;
+        }
+        .flame:nth-child(6) {
+            background: #ffae00;
+            animation-delay: 0.5s;
+        }
+        .flame:nth-child(7) {
+            background: #fff200;
+            animation-delay: 0.2s;
+        }
+        .flame:nth-child(8) {
+            background: #ff7e00;
+            animation-delay: 0.4s;
+        }
+        .embers-container {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 20px;
+            z-index: 2;
+            overflow: hidden;
+            display: block;
+        }
+        .ember {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff200;
+            box-shadow: 0 0 4px #ffae00;
+        }
+        .ember:nth-child(1) { 
+            left: 30%; 
+            animation: ember 1.2s infinite;
+            --ember-x: 15px;
+            --ember-y: -30px;
+            --ember-r: 45deg;
+        }
+        .ember:nth-child(2) { 
+            left: 50%; 
+            animation: ember 1.4s infinite 0.3s;
+            --ember-x: -10px;
+            --ember-y: -25px;
+            --ember-r: -30deg;
+        }
+        .ember:nth-child(3) { 
+            left: 70%; 
+            animation: ember 1.1s infinite 0.5s;
+            --ember-x: 8px;
+            --ember-y: -35px;
+            --ember-r: 20deg;
+        }
+        .ember:nth-child(4) { 
+            left: 40%; 
+            animation: ember 1.3s infinite 0.7s;
+            --ember-x: -12px;
+            --ember-y: -30px;
+            --ember-r: -45deg;
+        }
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .status-indicator.online {
+            background-color: rgba(34, 197, 94, 0.1);
+            color: #4ade80;
+        }
+        .status-indicator.offline {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+        }
+        .status-indicator::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        .status-indicator.online::before {
+            background-color: #4ade80;
+        }
+        .status-indicator.offline::before {
+            background-color: #f87171;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(74, 222, 128, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+            }
+        }
+        .warning-banner {
+            background: linear-gradient(to right, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.2));
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        .rate-limit-banner {
+            background: linear-gradient(to right, rgba(234, 179, 8, 0.1), rgba(234, 179, 8, 0.2));
+            border: 1px solid rgba(234, 179, 8, 0.2);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        .timeout-banner {
+            background: linear-gradient(to right, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0.2));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        .unauthorized-banner {
+            background: linear-gradient(to right, rgba(168, 85, 247, 0.1), rgba(168, 85, 247, 0.2));
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        .footer-link {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-link:hover {
+            color: #f3f4f6;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 mb-4">
+                InfernalForge
+            </h1>
+            <p class="text-gray-400 text-xl mb-4">AI-Powered Image Generation</p>
+            <div id="status-indicator" class="status-indicator offline">
+                <span class="status-dot"></span>
+                <span class="status-text">Checking service...</span>
+            </div>
+        </header>
+
+        <div id="warningBanner" class="warning-banner">
+            <div class="flex items-start">
+                <svg class="w-5 h-5 text-red-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+                <div>
+                    <h3 class="text-red-400 font-medium">Service Unavailable</h3>
+                    <div class="mt-1 text-sm text-gray-300 space-y-2">
+                        <p>The AI service appears to be offline. Please check your deployment and ensure all services are running correctly.</p>
+                        <div class="bg-gray-800/50 p-3 rounded-lg space-y-2">
+                            <p class="font-medium text-gray-200">Quick Setup:</p>
+                            <ol class="list-decimal list-inside space-y-1 text-gray-300">
+                                <li>Start AI service: <code class="bg-gray-700/50 px-2 py-0.5 rounded">python ai_service.py</code></li>
+                                <li>Start web app: <code class="bg-gray-700/50 px-2 py-0.5 rounded">python app.py</code></li>
+                                <li>Ensure both services are running on http://localhost:5001 and http://localhost:5000 respectively.</li>
+                            </ol>
+                        </div>
+                        <div class="flex space-x-4 mt-2">
+                            <a href="https://github.com/jstgtech/infernalforge#deployment" class="text-red-400 hover:text-red-300 underline" target="_blank">Deployment Guide</a>
+                            <a href="https://github.com/jstgtech/infernalforge/issues" class="text-red-400 hover:text-red-300 underline" target="_blank">Report Issues</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="rateLimitBanner" class="rate-limit-banner">
+            <div class="flex items-start">
+                <svg class="w-5 h-5 text-yellow-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <div>
+                    <h3 class="text-yellow-400 font-medium">Rate Limit Reached</h3>
+                    <p id="rateLimitMessage" class="mt-1 text-sm text-gray-300">
+                        Please wait before generating more images.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="timeoutBanner" class="timeout-banner">
+            <div class="flex items-start">
+                <svg class="w-5 h-5 text-indigo-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <div>
+                    <h3 class="text-indigo-400 font-medium">Server Still Starting</h3>
+                    <p class="mt-1 text-sm text-gray-300">
+                        The AI service is still warming up. This can take a minute or two on first startup. Please try again shortly.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="unauthorizedBanner" class="unauthorized-banner">
+            <div class="flex items-start">
+                <svg class="w-5 h-5 text-purple-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+                <div>
+                    <h3 class="text-purple-400 font-medium">Authentication Required</h3>
+                    <p class="mt-1 text-sm text-gray-300">
+                        Please check your API key and ensure it's properly configured.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-2xl mx-auto bg-gray-800/90 rounded-xl shadow-2xl p-8 backdrop-blur-sm">
+            <form id="generation-form" class="space-y-8">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <label for="prompt" class="text-base font-medium text-gray-300">Prompt</label>
+                        <span class="text-sm text-gray-500">Describe what you want to generate</span>
+                    </div>
+                    <textarea
+                        id="prompt"
+                        name="prompt"
+                        rows="3"
+                        class="w-full px-4 py-3 bg-gray-700/90 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-400 transition duration-200"
+                        placeholder="A majestic cat wearing a wizard hat, digital art style..."
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <label for="width" class="text-base font-medium text-gray-300">Width</label>
+                            <div class="tooltip">
+                                <span class="text-sm text-gray-500 cursor-help">64-1024px</span>
+                                <span class="tooltip-text">Image width in pixels</span>
+                            </div>
+                        </div>
+                        <input
+                            type="number"
+                            id="width"
+                            name="width"
+                            value="512"
+                            min="64"
+                            max="1024"
+                            class="w-full px-4 py-2.5 bg-gray-700/90 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white transition duration-200"
+                        >
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <label for="height" class="text-base font-medium text-gray-300">Height</label>
+                            <div class="tooltip">
+                                <span class="text-sm text-gray-500 cursor-help">64-1024px</span>
+                                <span class="tooltip-text">Image height in pixels</span>
+                            </div>
+                        </div>
+                        <input
+                            type="number"
+                            id="height"
+                            name="height"
+                            value="512"
+                            min="64"
+                            max="1024"
+                            class="w-full px-4 py-2.5 bg-gray-700/90 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white transition duration-200"
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <label for="steps" class="text-base font-medium text-gray-300">Inference Steps</label>
+                        <div class="tooltip">
+                            <span class="text-sm text-gray-500 cursor-help">1-100 steps</span>
+                            <span class="tooltip-text">Higher values = better quality, slower generation</span>
+                        </div>
+                    </div>
+                    <input
+                        type="number"
+                        id="steps"
+                        name="num_inference_steps"
+                        value="50"
+                        min="1"
+                        max="100"
+                        class="w-full px-4 py-2.5 bg-gray-700/90 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white transition duration-200"
+                    >
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <label for="seed" class="text-base font-medium text-gray-300">Seed (Optional)</label>
+                        <div class="tooltip">
+                            <span class="text-sm text-gray-500 cursor-help">Custom seed</span>
+                            <span class="tooltip-text">Enter a specific seed to reproduce an image or leave empty for random</span>
+                        </div>
+                    </div>
+                    <input
+                        type="number"
+                        id="seed"
+                        name="seed"
+                        class="w-full px-4 py-2.5 bg-gray-700/90 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white transition duration-200"
+                        placeholder="Leave empty for random seed"
+                    >
+                </div>
+
+                <div class="flex justify-center space-x-4">
+                    <button type="submit" id="generate-btn" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-4 px-6 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-800 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:from-purple-500 disabled:hover:to-pink-500">
+                        Generate Image
+                    </button>
+                </div>
+            </form>
+
+            <div id="results-container" class="mt-10 hidden">
+                <div class="relative w-full h-[512px] max-w-2xl mx-auto bg-gray-900/60 rounded-xl p-4 backdrop-blur-sm flex items-center justify-center">
+                    <a href="#" id="imageLink" target="_blank" class="relative block w-full h-full flex items-center justify-center group">
+                        <img id="generatedImage" class="rounded-lg shadow-2xl max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]" alt="Generated image">
+                    </a>
+                </div>
+                <div class="mt-4 flex items-center justify-center space-x-2">
+                    <span class="text-gray-400">Seed:</span>
+                    <span id="seedInfo" class="text-gray-300 font-medium"></span>
+                </div>
+            </div>
+
+            <div id="loading-container" class="mt-10 hidden">
+                <div class="w-full h-[512px] max-w-2xl mx-auto bg-gray-900/60 rounded-xl p-4 backdrop-blur-sm flex flex-col items-center justify-center">
+                    <div class="forge-container mx-auto mb-4">
+                        <div class="furnace"></div>
+                        <div class="flames">
+                            <div class="flame"></div>
+                            <div class="flame"></div>
+                            <div class="flame"></div>
+                            <div class="flame"></div>
+                            <div class="flame"></div>
+                            <div class="flame"></div>
+                            <div class="flame"></div>
+                            <div class="flame"></div>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-300 text-xl font-medium">Forging your creation...</p>
+                    <p class="text-center text-gray-400 mt-2">This may take a moment</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex justify-center space-x-6">
+                    <a href="https://github.com/jstgtech/infernalforge" class="footer-link flex items-center" target="_blank">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                        </svg>
+                        GitHub
+                    </a>
+                    <a href="https://github.com/jstgtech/infernalforge/wiki" class="footer-link flex items-center" target="_blank">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path>
+                        </svg>
+                        Documentation
+                    </a>
+                    <a href="https://github.com/jstgtech/infernalforge/issues" class="footer-link flex items-center" target="_blank">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path>
+                        </svg>
+                        Report Issues
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configuration
+            const POLLING_CONFIG = {
+                maxPolls: 50,           // Maximum number of polling attempts
+                pollInterval: 5000,     // Time between polls in milliseconds (5 seconds)
+                totalTimeout: 250000    // Total timeout in milliseconds (50 polls * 5 seconds = 250 seconds)
+            };
+
+            let healthCheckInterval = 30000; // Default to 30 seconds
+            let healthCheckTimer = null;
+            const DEBUG = false; // Enable debug logging to console.
+            let currentJobId = null;
+
+            function debugLog(...args) {
+                if (DEBUG) {
+                    console.log('[InfernalForge]', ...args);
+                }
+            }
+
+            // Add initial console log to verify script is running
+            console.log('[InfernalForge] Script loaded and running');
+
+            // Health check function
+            async function checkServiceHealth() {
+                const statusIndicator = document.getElementById('status-indicator');
+                const statusText = statusIndicator.querySelector('.status-text');
+                const form = document.getElementById('generation-form');
+                const warningBanner = document.getElementById('warningBanner');
+
+                try {
+                    const response = await fetch('/health');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    debugLog('Health check response:', data);
+
+                    if (data.status === 'healthy') {
+                        statusIndicator.classList.remove('offline');
+                        statusIndicator.classList.add('online');
+                        statusText.textContent = 'Service is online';
+                        form.style.opacity = '1';
+                        form.style.pointerEvents = 'auto';
+                        warningBanner.style.display = 'none';
+                        // Reset check interval to default when service is healthy
+                        healthCheckInterval = 30000;
+                    } else {
+                        debugLog('Service reported unhealthy:', data);
+                        throw new Error('Service reported unhealthy');
+                    }
+                } catch (error) {
+                    debugLog('Health check failed:', error);
+                    statusIndicator.classList.remove('online');
+                    statusIndicator.classList.add('offline');
+                    statusText.textContent = 'Service is offline';
+                    form.style.opacity = '0.5';
+                    form.style.pointerEvents = 'none';
+                    warningBanner.style.display = 'block';
+                    // Reduce check interval when service is down
+                    healthCheckInterval = 5000;
+                } finally {
+                    // Clear existing timer and set new one with current interval
+                    if (healthCheckTimer) {
+                        clearTimeout(healthCheckTimer);
+                    }
+                    healthCheckTimer = setTimeout(checkServiceHealth, healthCheckInterval);
+                }
+            }
+
+            // Start health checks
+            checkServiceHealth();            
+
+            // Handle form submission
+            document.getElementById('generation-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                console.log('[InfernalForge] Form submitted');
+                
+                const form = e.target;
+                const loading = document.getElementById('loading-container');
+                const result = document.getElementById('results-container');
+                const generatedImage = document.getElementById('generatedImage');
+                const imageLink = document.getElementById('imageLink');
+                const seedInfo = document.getElementById('seedInfo');
+                const rateLimitBanner = document.getElementById('rateLimitBanner');
+                const timeoutBanner = document.getElementById('timeoutBanner');
+                const unauthorizedBanner = document.getElementById('unauthorizedBanner');
+                const submitButton = form.querySelector('button[type="submit"]');
+                
+                console.log('[InfernalForge] Form elements retrieved:', {
+                    loading: !!loading,
+                    result: !!result,
+                    generatedImage: !!generatedImage,
+                    imageLink: !!imageLink,
+                    seedInfo: !!seedInfo,
+                    submitButton: !!submitButton
+                });
+
+                let abortController = new AbortController();
+                let pollInterval = null;
+
+                // Hide any existing banners
+                rateLimitBanner.style.display = 'none';
+                timeoutBanner.style.display = 'none';
+                unauthorizedBanner.style.display = 'none';
+
+                // Disable the submit button and show loading state
+                submitButton.disabled = true;
+                loading.classList.remove('hidden');
+                result.classList.add('hidden');
+
+                console.log('[InfernalForge] Loading state set:', {
+                    loadingVisible: !loading.classList.contains('hidden'),
+                    resultHidden: result.classList.contains('hidden'),
+                    buttonDisabled: submitButton.disabled
+                });
+
+                try {
+                    // Submit the generation request
+                    console.log('[InfernalForge] Submitting generation request...');
+                    const response = await fetch('/generate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            prompt: form.prompt.value,
+                            width: parseInt(form.width.value),
+                            height: parseInt(form.height.value),
+                            num_inference_steps: parseInt(form.steps.value),
+                            seed: form.seed.value ? parseInt(form.seed.value) : undefined,
+                        }),
+                        signal: abortController.signal
+                    });
+
+                    console.log('[InfernalForge] Response received:', response.status);
+                    const data = await response.json();
+                    console.log('[InfernalForge] Response data:', data);
+                    
+                    if (data.success) {
+                        if (data.job_id) {
+                            debugLog('Received job_id, starting polling...');
+                            let pollCount = 0;
+                            
+                            // Start polling for job status
+                            try {
+                                debugLog('Setting up polling interval...');
+                                
+                                // Define the polling function
+                                const pollStatus = async () => {
+                                    try {
+                                        pollCount++;
+                                        debugLog(`Polling job status (attempt ${pollCount}/${POLLING_CONFIG.maxPolls})...`);
+                                        
+                                        debugLog('Making status request to:', `/status/${data.job_id}`);
+                                        const statusResponse = await fetch(`/status/${data.job_id}`, {
+                                            headers: {
+                                                'X-Auth-Token': '{{ ai_service_auth_token }}'  // Add auth token
+                                            }
+                                        });
+                                        
+                                        debugLog('Status response status:', statusResponse.status);
+                                        debugLog('Status response headers:', Object.fromEntries(statusResponse.headers.entries()));
+                                        
+                                        if (!statusResponse.ok) {
+                                            throw new Error(`Status check failed: ${statusResponse.status}`);
+                                        }
+                                        
+                                        const statusData = await statusResponse.json();
+                                        debugLog('Status response data:', JSON.stringify(statusData, null, 2));
+                                        
+                                        if (!statusData || typeof statusData !== 'object') {
+                                            throw new Error('Invalid status response format');
+                                        }
+
+                                        debugLog('Current job status:', statusData.status);
+                                        debugLog('Current poll count:', pollCount);
+                                        debugLog('Max polls:', POLLING_CONFIG.maxPolls);
+                                        debugLog('Full status data:', statusData);
+
+                                        if (statusData.status === 'completed') {
+                                            debugLog('Job completed, setting image...');
+                                            debugLog('Image path from status:', statusData.image_path);
+                                            debugLog('Seed from status:', statusData.seed);
+                                            // Clear polling interval
+                                            clearInterval(pollInterval);
+                                            debugLog('Cleared polling interval');
+                                            
+                                            // Set the image
+                                            const imagePath = statusData.image_path;
+                                            debugLog('Setting image source to:', imagePath);
+                                            // Create a URL with auth token
+                                            const imageUrl = new URL(imagePath, window.location.origin);
+                                            const authToken = '{{ ai_service_auth_token }}';
+                                            debugLog('Adding auth token to image request');
+                                            generatedImage.src = `${imageUrl}?auth=${encodeURIComponent(authToken)}`;
+                                            imageLink.href = generatedImage.src;
+                                            seedInfo.textContent = statusData.seed;
+                                            result.classList.remove('hidden');
+                                            loading.classList.add('hidden');
+                                            submitButton.disabled = false;
+                                            submitButton.textContent = 'Generate Image';
+                                            
+                                            // Add error handling for image loading
+                                            generatedImage.onerror = function() {
+                                                console.error('Failed to load image:', imagePath);
+                                                alert('Failed to load the generated image. Please try again.');
+                                                loading.classList.add('hidden');
+                                                result.classList.add('hidden');
+                                                submitButton.disabled = false;
+                                                submitButton.textContent = 'Generate Image';
+                                            };
+                                        } else if (statusData.status === 'failed') {
+                                            debugLog('Job failed:', statusData.error);
+                                            // Clear polling interval
+                                            clearInterval(pollInterval);
+                                            debugLog('Cleared polling interval due to failure');
+                                            
+                                            // Show error
+                                            alert('Error generating image: ' + statusData.error);
+                                            loading.classList.add('hidden');
+                                            submitButton.disabled = false;
+                                            submitButton.textContent = 'Generate Image';
+                                        } else if (pollCount >= POLLING_CONFIG.maxPolls) {
+                                            debugLog('Max polls reached, stopping...');
+                                            clearInterval(pollInterval);
+                                            debugLog('Cleared polling interval due to timeout');
+                                            alert(`Image generation timed out after ${POLLING_CONFIG.totalTimeout/1000} seconds. Please try again.`);
+                                            loading.classList.add('hidden');
+                                            submitButton.disabled = false;
+                                            submitButton.textContent = 'Generate Image';
+                                        } else {
+                                            debugLog('Job still processing...');
+                                            // Keep loading state visible while processing
+                                            loading.classList.remove('hidden');
+                                            result.classList.add('hidden');
+                                            submitButton.disabled = true;
+                                            submitButton.textContent = 'Generating...';
+                                        }
+                                    } catch (error) {
+                                        debugLog('Error in polling loop:', error);
+                                        debugLog('Error details:', {
+                                            name: error.name,
+                                            message: error.message,
+                                            stack: error.stack
+                                        });
+                                        clearInterval(pollInterval);
+                                        debugLog('Cleared polling interval due to error');
+                                        alert('Error checking image status: ' + error.message);
+                                        loading.classList.add('hidden');
+                                        submitButton.disabled = false;
+                                        submitButton.textContent = 'Generate Image';
+                                    }
+                                };
+
+                                // Execute the first poll immediately
+                                debugLog('Executing first poll immediately...');
+                                await pollStatus();  // Wait for the first poll to complete
+
+                                // Then set up the interval for subsequent polls
+                                let pollInterval = setInterval(pollStatus, POLLING_CONFIG.pollInterval);
+                                debugLog('Polling interval set up successfully');
+                                
+                                // Store the interval ID for cleanup
+                                currentJobId = data.job_id;
+                                
+                                // Add cleanup on page unload
+                                window.addEventListener('beforeunload', function() {
+                                    if (pollInterval) {
+                                        debugLog('Cleaning up polling interval on page unload');
+                                        clearInterval(pollInterval);
+                                    }
+                                });
+                            } catch (error) {
+                                debugLog('Error setting up polling interval:', error);
+                                debugLog('Error details:', {
+                                    name: error.name,
+                                    message: error.message,
+                                    stack: error.stack
+                                });
+                                alert('Error setting up status checking: ' + error.message);
+                                loading.classList.add('hidden');
+                                submitButton.disabled = false;
+                                submitButton.textContent = 'Generate Image';
+                            }
+                        } else if (data.image_path) {
+                            debugLog('Received direct image_path response');
+                            // Handle direct response with file_id
+                            const imagePath = data.image_path;
+                            debugLog('Setting image source to:', imagePath);
+                            generatedImage.src = imagePath;
+                            imageLink.href = imagePath;
+                            seedInfo.textContent = data.seed;
+                            result.classList.remove('hidden');
+                            loading.classList.add('hidden');
+                            submitButton.disabled = false;
+                            submitButton.textContent = 'Generate Image';
+                            
+                            // Add error handling for image loading
+                            generatedImage.onerror = function() {
+                                console.error('Failed to load image:', imagePath);
+                                alert('Failed to load the generated image. Please try again.');
+                                loading.classList.add('hidden');
+                                result.classList.add('hidden');
+                                submitButton.disabled = false;
+                                submitButton.textContent = 'Generate Image';
+                            };
+                        } else {
+                            debugLog('No job_id or image_path in response');
+                            alert('Error: No image path received from server');
+                            loading.classList.add('hidden');
+                            submitButton.disabled = false;
+                            submitButton.textContent = 'Generate Image';
+                        }
+                    } else {
+                        debugLog('Request failed:', data.error);
+                        alert('Error: ' + (data.error || 'Unknown error occurred'));
+                        loading.classList.add('hidden');
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Generate Image';
+                    }
+
+                    if (response.status === 401) {
+                        debugLog('Unauthorized error');
+                        // Unauthorized error
+                        unauthorizedBanner.style.display = 'block';
+                        loading.classList.add('hidden');
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Generate Image';
+                        return;
+                    }
+
+                    if (response.status === 429) {
+                        debugLog('Rate limit error');
+                        // Rate limit error
+                        rateLimitBanner.style.display = 'block';
+                        loading.classList.add('hidden');
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Generate Image';
+                        return;
+                    }
+
+                    if (response.status === 504 || (data.error && data.error.includes('timeout'))) {
+                        debugLog('Timeout error');
+                        // Timeout error - likely during startup
+                        timeoutBanner.style.display = 'block';
+                        loading.classList.add('hidden');
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Generate Image';
+                        return;
+                    }
+
+                } catch (error) {
+                    debugLog('Generate error:', error);
+                    // Don't show error if it was cancelled
+                    if (error.name === 'AbortError') {
+                        debugLog('Request cancelled');
+                        return;
+                    }
+                    // Check if it's a network timeout
+                    if (error.name === 'TimeoutError' || error.message.includes('timeout')) {
+                        timeoutBanner.style.display = 'block';
+                        loading.classList.add('hidden');
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Generate Image';
+                    } else {
+                        alert('Error: ' + error.message);
+                        loading.classList.add('hidden');
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Generate Image';
+                    }
+                } finally {
+                    if (pollInterval) {
+                        clearInterval(pollInterval);
+                    }
+                    // Remove loading state cleanup from here
+                }
+            });
+
+            // Handle download
+            document.getElementById('download-btn').addEventListener('click', () => {
+                const image = document.getElementById('generatedImage');
+                const link = document.createElement('a');
+                link.href = image.src;
+                link.download = 'generated-image.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            // Handle share
+            document.getElementById('share-btn').addEventListener('click', async () => {
+                const image = document.getElementById('generatedImage');
+                try {
+                    if (navigator.share) {
+                        await navigator.share({
+                            title: 'Generated Image',
+                            text: 'Check out this AI-generated image!',
+                            url: image.src
+                        });
+                    } else {
+                        // Fallback to copying to clipboard
+                        await navigator.clipboard.writeText(image.src);
+                        alert('Image URL copied to clipboard!');
+                    }
+                } catch (error) {
+                    console.error('Share failed:', error);
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
